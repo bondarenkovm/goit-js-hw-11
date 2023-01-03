@@ -43,6 +43,7 @@ function onLoadMore() {
 
 function renderMarkup({ hits, totalHits }) {
   if (!hits.length) {
+    loadMoreBtn.classList.add('btn');
     Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
