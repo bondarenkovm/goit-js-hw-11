@@ -9,6 +9,11 @@ const form = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 
+var lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: `alt`,
+  captionDelay: 250,
+});
+
 loadMoreBtn.classList.add('btn');
 // loadMoreBtn.hidden = true;
 // loadMoreBtn.disabled = true;
@@ -24,9 +29,8 @@ function onSubmitForm(evt) {
     newApiPixabay.query = evt.currentTarget.elements.searchQuery.value.trim();
     newApiPixabay.resetPage();
     newApiPixabay.fetchPixabay().then(({ hits, totalHits }) => {
-      //   loadMoreBtn.classList.add('btn');
-      renderMarkup({ hits, totalHits });
       loadMoreBtn.classList.remove('btn');
+      renderMarkup({ hits, totalHits });
     });
   } else {
     Notify.failure('Enter data to search!');
@@ -75,8 +79,11 @@ function renderMarkup({ hits, totalHits }) {
     )
     .join('');
   gallery.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
+  smoothScroll();
 
   if (gallery.children.length === totalHits) {
+    loadMoreBtn.classList.add('btn');
     Notify.failure(
       "We're sorry, but you've reached the end of search results."
     );
@@ -86,9 +93,14 @@ function renderMarkup({ hits, totalHits }) {
 
 function clearGallery() {
   gallery.innerHTML = '';
-  loadMoreBtn.hidden = true;
+  loadMoreBtn.classList.add('btn');
 }
-var lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: `alt`,
-  captionDelay: 250,
-});
+
+function smoothScroll() {
+  const { height: cardHeight } =
+    gallery.firstElementChild.getBoundingClientRect();
+  window.scrollBy({
+    top: cardHeight * 0.2,
+    behavior: 'smooth',
+  });
+}

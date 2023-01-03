@@ -59,6 +59,15 @@ img {
   padding-bottom: 10px;
   font-size: 20px;
   background-color: rgb(86, 199, 129);
+  &:hover {
+    color: white;
+    background-color: #a2e352;
+  }
+  &:focus {
+    color: white;
+    background-color: #a2e352;
+    outline: none;
+  }
 }
 .gallery {
   flex-wrap: wrap;
@@ -83,7 +92,7 @@ img {
   margin: 0;
   font-size: 20px;
   &:not(:last-child) {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
 }
 
@@ -100,6 +109,15 @@ img {
   padding-bottom: 10px;
   font-size: 20px;
   background-color: rgb(86, 199, 129);
+  &:hover {
+    color: white;
+    background-color: #a2e352;
+  }
+  &:focus {
+    color: white;
+    background-color: #a2e352;
+    outline: none;
+  }
 }
 .btn {
   opacity: 1;
