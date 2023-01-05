@@ -12,7 +12,7 @@ export default class NewApiPixabay {
 
     const response = await axios.get(BASE_URL);
     this.page += 1;
-    console.log(response);
+    // console.log(response);
     return response.data;
   }
   resetPage() {

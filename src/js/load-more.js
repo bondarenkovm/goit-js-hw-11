@@ -33,12 +33,21 @@ function onSubmitForm(evt) {
       renderMarkup({ hits, totalHits });
     });
   } else {
+    clearGallery();
     Notify.failure('Enter data to search!');
   }
 }
 
 function onLoadMore() {
-  newApiPixabay.fetchPixabay().then(renderMarkup);
+  newApiPixabay
+    .fetchPixabay()
+    .then(renderMarkup)
+    .catch(error => {
+      loadMoreBtn.classList.add('btn');
+      Notify.failure(
+        "We're sorry, but you've reached the end of search results."
+      );
+    });
 }
 
 function renderMarkup({ hits, totalHits }) {
@@ -101,7 +110,7 @@ function smoothScroll() {
   const { height: cardHeight } =
     gallery.firstElementChild.getBoundingClientRect();
   window.scrollBy({
-    top: cardHeight * 0.2,
+    top: cardHeight * 0.31,
     behavior: 'smooth',
   });
 }
